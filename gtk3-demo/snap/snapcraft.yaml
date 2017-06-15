@@ -1,0 +1,50 @@
+name: gtk3-demo
+version: 'latest'
+summary: GTK3 demo - including all libraries -
+description: |
+  GTK3 using themes, includingall libraries (no platform snap involved)
+grade: stable
+confinement: strict
+
+apps:
+  gtk3-demo:
+    command: desktop-launch gtk3-demo
+    plugs: [unity7, x11, gsettings, home, themes, themes-icon, themes-gtk2]
+
+plugs:
+  themes:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $SNAP/share/themes/Adwaita
+    # $SNAP/share/themes/Radiance
+    # …
+    target: $SNAP/share/themes/
+    default-provider: ubuntu-themes # install the snap, and connect both radiance and ambiance slots
+  themes-icon:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $SNAP/share/icons/Adwaita
+    # $SNAP/share/icons/ubuntu-mono-dark
+    # …
+    target: $SNAP/share/icons/
+    default-provider: ubuntu-themes # install the snap, and connect both radiance-icon and ambiance-icon slots
+  themes-gtk2:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $SNAP/usr/lib/*/gtk-2.0/2.10.0/engines/libadwaita.so
+    # $SNAP/usr/lib/*/gtk-2.0/2.10.0/engines/…
+    # where * is the arch triplet
+    # …
+    target: $SNAP/lib/???
+
+# NOTE: this is complex for someone who just want to snap one package without using platform
+# (platform simplifies this).
+
+parts:
+  gtk3-demo:
+    plugin: nil
+    stage-packages: [gtk-3-examples, libglib2.0-bin]
+    after: [desktop-gtk3]

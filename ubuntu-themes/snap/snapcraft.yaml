@@ -1,0 +1,37 @@
+name: ubuntu-themes
+version: '1.0'
+summary: Ubuntu Light Themes (Ambiance and Radiance)
+description: |
+ Includes matching Ambiance and Radiance themes
+ .
+ * Ambiance is a light-on-dark theme
+ * Radiance is a dark-on-light theme
+grade: stable
+confinement: strict
+
+slots:
+  ambiance:
+    interface: content
+    content: desktop-theme
+    read:
+      - /usr/share/themes/Ambiance
+  ambiance-icon:
+    interface: content
+    content: desktop-theme-icon
+    read:
+      - /usr/share/icons/ubuntu-mono-dark
+  radiance:
+    interface: content
+    content: desktop-theme
+    read:
+      - /usr/share/themes/Radiance
+  radiance-icon:
+    interface: content
+    content: desktop-theme-icon
+    read:
+      - /usr/share/icons/ubuntu-mono-light
+
+parts:
+  ubuntu-themes:
+    plugin: nil
+    stage-packages: [light-themes]

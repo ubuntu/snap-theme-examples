@@ -1,0 +1,30 @@
+name: adwaita-theme
+version: '1.0'
+summary: Adwaita Theme
+description: |
+ Includes Adwaita theme
+grade: stable
+confinement: strict
+
+slots:
+  adwaita:
+    interface: content
+    content: desktop-theme
+    read:
+      - /usr/share/themes/Adwaita
+  adwaita-icon:
+    interface: content
+    content: desktop-theme-icon
+    read:
+      - /usr/share/icons/Adwaita
+  adwaita-gtk2:
+    interface: content
+    content: desktop-theme-gtk2
+    read:
+      - /usr/lib/*/gtk-2.0/2.10.0/engines/libadwaita.so
+# * is the arch triplet x86_64-linux-gnu
+
+parts:
+  adwaita-themes:
+    plugin: nil
+    stage-packages: [gnome-themes-standard, adwaita-icon-theme-full]

@@ -1,0 +1,25 @@
+name: gtk3-demo-with-3-24
+version: 'latest'
+summary: GTK3 demo - including all libraries -
+description: |
+  GTK3 using themes, includingall libraries (no platform snap involved)
+grade: stable
+confinement: strict
+
+apps:
+  gtk3-demo:
+    command: desktop-launch gtk3-demo
+    plugs: [unity7, x11, gsettings, home]
+
+plugs:
+  gnome-3-24-platform:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-24
+  # themes, icons and gtk2 engines are available relative to $SNAP/gnome-platform
+
+parts:
+  gtk3-demo:
+    plugin: nil
+    stage-packages: [gtk-3-examples, libglib2.0-bin]
+    after: [desktop-gtk3]

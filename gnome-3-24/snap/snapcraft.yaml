@@ -1,0 +1,48 @@
+name: gnome-3-24
+version: 3.24
+summary: Shared GNOME 3.24 Ubuntu stack
+description: |
+ This snap includes a GNOME 3.24 stack (the base libraries and desktop 
+ integration components) and shares it through the content interface. 
+ It's built using the Ubuntu xenial backport binaries.
+confinement: strict
+grade: stable
+
+# the recommended mountpoint for that content is /gnome-platform
+slots:
+    gnome-3-24-platform:
+      interface: content
+      read:
+        - /
+
+plugs:
+  themes:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $PLATFORM_MOUNTPOINT/share/themes/Adwaita
+    # $PLATFORM_MOUNTPOINT/share/themes/Radiance
+    # …
+    target: $PLATFORM_MOUNTPOINT/share/themes/
+    default-provider: ubuntu-themes # install the snap, and connect both radiance and ambiance slots
+  themes-icon:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $PLATFORM_MOUNTPOINT/share/icons/Adwaita
+    # $PLATFORM_MOUNTPOINT/share/icons/ubuntu-mono-dark
+    # …
+    target: $PLATFORM_MOUNTPOINT/share/icons/
+    default-provider: ubuntu-themes # install the snap, and connect both radiance-icon and ambiance-icon slots
+  themes-gtk2:
+    interface: content
+    # Here, the target would bindmount all themes directory (without existing at build-time)
+    # so, we will have:
+    # $PLATFORM_MOUNTPOINT/usr/lib/*/gtk-2.0/2.10.0/engines/libadwaita.so
+    # $PLATFORM_MOUNTPOINT/usr/lib/*/gtk-2.0/2.10.0/engines/…
+    # where * is the arch triplet
+    # …
+    target: $PLATFORM_MOUNTPOINTSNAP/lib/???
+
+parts:
+  […]
