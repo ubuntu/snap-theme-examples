@@ -1,4 +1,4 @@
-name: gtk3-demo-with-3-24
+name: gtk3-demo
 version: 'latest'
 summary: GTK3 demo - including all libraries -
 description: |
